@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  </style>
+</head>
+<body>
+  <form id="survey-form">
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" name="first-name" required><br>
+
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" name="last-name" required><br>
+
+    <label for="date-of-birth">Date of Birth:</label>
+    <input type="date" id="date-of-birth" name="date-of-birth" required><br>
+
+    <label for="country">Country:</label>
+    <select id="country" name="country" required>
+      <option value="Country1">Country 1</option>
+      <option value="Country2">Country 2</option>
+      <option value="Country3">Country 3</option>
+      <!-- Add more countries as needed -->
+    </select><br>
+
+    <label>Gender:</label><br>
+    <input type="checkbox" id="male" name="gender" value="male"> Male
+    <input type="checkbox" id="female" name="gender" value="female"> Female
+    <input type="checkbox" id="other" name="gender" value="other"> Other<br>
+
+    <label for="profession">Profession:</label>
+    <input type="text" id="profession" name="profession" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="mobile-number">Mobile Number:</label>
+    <input type="tel" id="mobile-number" name="mobile-number" required><br>
+
+    <button type="submit" id="submit-button">Submit</button>
+    <button type="reset" id="reset-button">Reset</button>
+  </form>
+
+  <div id="popup" class="popup">
+    <!-- This div will display the selected values with labels -->
+  </div>
+
+  <script>
+    document.getElementById("survey-form").addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent the form from submitting
+
+      // Check all the fields and perform necessary validations here
+      // If everything is valid, then display the popup
+      // Otherwise, show an error message
+
+      // Get form values
+      const firstName = document.getElementById("first-name").value;
+      const lastName = document.getElementById("last-name").value;
+      const dateOfBirth = document.getElementById("date-of-birth").value;
+      const country = document.getElementById("country").value;
+      const gender = document.querySelectorAll('input[name="gender"]:checked');
+      const profession = document.getElementById("profession").value;
+      const email = document.getElementById("email").value;
+      const mobileNumber = document.getElementById("mobile-number").value;
+
+      // Construct the popup message
+      let popupMessage = `
+        <p><strong>First Name:</strong> ${firstName}</p>
+        <p><strong>Last Name:</strong> ${lastName}</p>
+        <p><strong>Date of Birth:</strong> ${dateOfBirth}</p>
+        <p><strong>Country:</strong> ${country}</p>
+        <p><strong>Gender:</strong> ${gender.length > 0 ? gender.map(g => g.value).join(", ") : "Not specified"}</p>
+        <p><strong>Profession:</strong> ${profession}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mobile Number:</strong> ${mobileNumber}</p>
+      `;
+
+      // Display the popup
+      const popup = document.getElementById("popup");
+      popup.innerHTML = popupMessage;
+      popup.style.display = "block";
+
+      // Reset the form
+      this.reset();
+    });
+
+    document.getElementById("reset-button").addEventListener("click", function () {
+      // Reset the form
+      document.getElementById("survey-form").reset();
+
+      // Clear the popup
+      const popup = document.getElementById("popup");
+      popup.style.display = "none";
+      popup.innerHTML = "";
+    });
+  </script>
+  </body>
+</html>
